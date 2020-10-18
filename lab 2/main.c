@@ -23,21 +23,33 @@ int main() {
         return 1;
     }
 
+//    1 is write, 0 is read
+
 //   ----------- parent----------
     else if (ID > 0) {//parent
         printf("This is parent\n");
         fflush(stdout);
-
-
-        close(fd2[1]);
         close(fd1[0]);
-        close(fd1[1]);
+        close(fd2[1]);
 
-        int result;
-        read(fd2[0], &result, sizeof(int));
-        printf("result is %d\n", result);
-        fflush(stdout);
+        struct numbers nums;
+
+        while(scanf("%d %d %d", &nums.n1, &nums.n2, &nums.n3) > 0) {
+
+            write(fd1[1], &nums, sizeof(struct numbers));
+
+            int result;
+            if(read(fd2[0], &result, sizeof(int)) < 0){
+                printf("Read error");
+                return 1;
+            }
+            printf("result is %d\n", result);
+
+        }
+        close(fd1[1]);
         close(fd2[0]);
+
+
     }
 
 
@@ -45,31 +57,22 @@ int main() {
     else {//child
         printf("This is child\n");
         fflush(stdout);
-
-        close(fd2[1]);//write
-        close(fd2[0]);
-        close(fd1[0]);//read
-
-        struct numbers nums;
-
-        if (dup2(fd1[1], STDOUT_FILENO) < 0) {
-            printf("Dup error\n");
-            return 1;
-        }
-
-        printf("Enter nums\n");
-        fflush(stdout);
-        scanf("%d %d %d", &nums.n1, &nums.n2, &nums.n3);
-        write(fd1[1], &nums, sizeof(struct numbers));
-
-        char *const *arg = NULL;
-        if (execv("child.out", arg) < 0) {
-            printf("Exec error\n");
-            return 1;
-        }
         close(fd1[1]);
+        close(fd2[0]);
+
+        dup2(fd1[0],STDIN_FILENO);
+        dup2(fd2[1], STDOUT_FILENO);
+
+        char * const * arg = NULL;
+
+        execv("child.out", arg);
+
+        close(fd1[0]);
+        close(fd2[1]);
 
     }
+
+
 
     return 0;
 }
