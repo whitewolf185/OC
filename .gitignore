@@ -2,3 +2,7 @@
 .idea/
 test.c
 /cmake-build-wsl/
+
+*.out
+out.txt
+/cmake-build-release-wsl/
