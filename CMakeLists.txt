@@ -3,4 +3,4 @@ project(OC C)
 
 set(CMAKE_C_STANDARD 90)
 
-add_executable(OC "lab 2/main.c" "lab 2/child.c")
+add_executable(OC "lab 2/main.c")
