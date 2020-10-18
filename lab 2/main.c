@@ -27,8 +27,8 @@ int main() {
 
 //   ----------- parent----------
     else if (ID > 0) {//parent
-        printf("This is parent\n");
-        fflush(stdout);
+        /*printf("This is parent\n");
+        fflush(stdout);*/
         close(fd1[0]);
         close(fd2[1]);
 
@@ -44,6 +44,7 @@ int main() {
                 return 1;
             }
             printf("result is %d\n", result);
+            fflush(stdout);
 
         }
         close(fd1[1]);
@@ -55,8 +56,8 @@ int main() {
 
         //---------child----------
     else {//child
-        printf("This is child\n");
-        fflush(stdout);
+        /*printf("This is child\n");
+        fflush(stdout);*/
         close(fd1[1]);
         close(fd2[0]);
 
