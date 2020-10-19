@@ -1,13 +1,9 @@
 #include "unistd.h"
 #include "stdio.h"
-
-struct numbers {
-    int n1, n2;
-};
+#include "vector.h"
 
 int main(int count, char *filename[]) {
 
-    struct numbers nums;
     FILE *output = NULL;
     output = fopen(filename[0], "a");
     if (output == NULL) {
@@ -15,10 +11,21 @@ int main(int count, char *filename[]) {
         fclose(output);
         return 1;
     }
-    while (read(STDIN_FILENO, &nums, sizeof(struct numbers)) > 0) {
-        int result = nums.n1 + nums.n2;
-        fprintf(output, "%d + %d = %d\n", nums.n1, nums.n2, result);
+    vector nums;
+    create(&nums, 0);
+    int tmp;
+    while (read(STDIN_FILENO, &tmp, sizeof(int)) > 0) {
+        push_back(&nums, tmp);
     }
+    int i;
+    int result = 0;
+    for (i = 0; i < size(&nums); ++i) {
+        result += nums.data[i];
+        fprintf(output, "%d ", nums.data[i]);
+    }
+    fprintf(output, "= %d\n", result);
+
+
     fclose(output);
     return 0;
 }

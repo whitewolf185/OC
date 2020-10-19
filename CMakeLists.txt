@@ -3,7 +3,7 @@ project(OC C)
 
 set(CMAKE_C_STANDARD 90)
 
-add_executable(OC "lab 2/main.c")
+add_executable(OC "lab 2/main.c" vector.h)
 add_executable(child "lab 2/child.c")
 
 set_target_properties(

@@ -1,14 +1,13 @@
 #include "unistd.h"
 #include "stdio.h"
 
-struct numbers {
-    int n1, n2;
-};
+#define WRITE 1
+#define READ 0
 
 int main() {
     printf("Enter filename\n");
     fflush(stdout);
-    char arg[126];
+    char arg[256];
     scanf("%s\n", arg);
     int fd2[2];
     int fd1[2];
@@ -26,28 +25,27 @@ int main() {
         printf("Fork error!");
         return 1;
     }
-//    1 is write, 0 is read
 //   ----------- parent----------
     else if (ID > 0) {
-        close(fd1[0]);
-        close(fd2[1]);
-        struct numbers nums;
-        while (scanf("%d %d", &nums.n1, &nums.n2) > 0) {
-            write(fd1[1], &nums, sizeof(struct numbers));
+        close(fd1[READ]);
+        close(fd2[WRITE]);
+        int tmp;
+        while (scanf("%d", &tmp) > 0) {
+            write(fd1[WRITE], &tmp, sizeof(int));
         }
-        close(fd1[1]);
-        close(fd2[0]);
+        close(fd1[WRITE]);
+        close(fd2[READ]);
     }
         //---------child----------
     else {
-        close(fd1[1]);
-        close(fd2[0]);
+        close(fd1[WRITE]);
+        close(fd2[READ]);
 
-        dup2(fd1[0], STDIN_FILENO);
+        dup2(fd1[READ], STDIN_FILENO);
         execl("child.out", arg, NULL);
 
-        close(fd1[0]);
-        close(fd2[1]);
+        close(fd1[READ]);
+        close(fd2[WRITE]);
 
     }
     return 0;
