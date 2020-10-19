@@ -2,10 +2,14 @@
 #include "stdio.h"
 
 struct numbers {
-    int n1, n2, n3;
+    int n1, n2;
 };
 
 int main() {
+    printf("Enter filename\n");
+    fflush(stdout);
+    char arg[126];
+    scanf("%s\n", arg);
     int fd2[2];
     int fd1[2];
     if (pipe(fd2) < 0) {
@@ -22,58 +26,29 @@ int main() {
         printf("Fork error!");
         return 1;
     }
-
 //    1 is write, 0 is read
-
 //   ----------- parent----------
-    else if (ID > 0) {//parent
-        /*printf("This is parent\n");
-        fflush(stdout);*/
+    else if (ID > 0) {
         close(fd1[0]);
         close(fd2[1]);
-
         struct numbers nums;
-
-        while(scanf("%d %d %d", &nums.n1, &nums.n2, &nums.n3) > 0) {
-
+        while (scanf("%d %d %d", &nums.n1, &nums.n2) > 0) {
             write(fd1[1], &nums, sizeof(struct numbers));
-
-            int result;
-            if(read(fd2[0], &result, sizeof(int)) < 0){
-                printf("Read error");
-                return 1;
-            }
-            printf("result is %d\n", result);
-            fflush(stdout);
-
         }
         close(fd1[1]);
         close(fd2[0]);
-
-
     }
-
-
         //---------child----------
-    else {//child
-        /*printf("This is child\n");
-        fflush(stdout);*/
+    else {
         close(fd1[1]);
         close(fd2[0]);
 
-        dup2(fd1[0],STDIN_FILENO);
-        dup2(fd2[1], STDOUT_FILENO);
-
-        char * const * arg = NULL;
-
-        execv("child.out", arg);
+        dup2(fd1[0], STDIN_FILENO);
+        execl("child.out", arg, NULL);
 
         close(fd1[0]);
         close(fd2[1]);
 
     }
-
-
-
     return 0;
 }
