@@ -32,7 +32,7 @@ int main() {
         close(fd1[0]);
         close(fd2[1]);
         struct numbers nums;
-        while (scanf("%d %d %d", &nums.n1, &nums.n2) > 0) {
+        while (scanf("%d %d", &nums.n1, &nums.n2) > 0) {
             write(fd1[1], &nums, sizeof(struct numbers));
         }
         close(fd1[1]);
