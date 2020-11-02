@@ -29,9 +29,9 @@ int main() {
     else if (ID > 0) {
         close(fd1[READ]);
         close(fd2[WRITE]);
-        int tmp;
-        while (scanf("%d", &tmp) > 0) {
-            write(fd1[WRITE], &tmp, sizeof(int));
+        char tmp;
+        while (scanf("%c", &tmp) > 0) {
+            write(fd1[WRITE], &tmp, sizeof(char));
         }
         close(fd1[WRITE]);
         close(fd2[READ]);

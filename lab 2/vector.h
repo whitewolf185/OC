@@ -46,7 +46,7 @@ int size(vector *v) {
 
 void destroy(vector *v) {
     v->size = 0;
-    free(v->data);
+    //free(v->data);
 }
 
 #endif
