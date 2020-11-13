@@ -1,8 +1,11 @@
-/cmake-build-debug/
+#folders
+/cmake*/
 .idea/
-test.c
-/cmake-build-wsl/
 
+#files
+*test*
 *.out
-out.txt
-/cmake-build-release-wsl/
+out*
+*.docx
+*.xlsx
+
