@@ -6,6 +6,14 @@
 *test*
 *.out
 out*
+
+#word files
 *.docx
+!title.docx
+
+#excel files
 *.xlsx
 
+#pdf
+*.pdf
+!report.pdf
