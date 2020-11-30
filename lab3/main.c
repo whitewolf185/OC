@@ -271,7 +271,7 @@ int main(int argc, char const *argv[]){
     }
 
     scanf_With_Fill_Rand_Matrix(&in, n, m);
-//    printMatrix(&in);
+    printMatrix(&in);
 
     printf("Enter your K\n> ");
     fflush(stdout);
@@ -334,7 +334,7 @@ int main(int argc, char const *argv[]){
     free(args);
 
     printf("Result matrix:\n");
-//    printMatrix(&in);
+    printMatrix(&in);
 
     FILE *file = fopen("log.txt", "a");
     fprintf(file, "threads = %d\ntime = %ld s\n\n", max_threads,end-start);
