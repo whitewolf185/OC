@@ -24,7 +24,7 @@ set_target_properties(
         SUFFIX ".out"
 )
 
-add_executable(lab4_test "lab4/u.c")
+add_executable(lab4_test "lab4/test_Maks.c")
 set_target_properties(
         lab4_test
         PROPERTIES
