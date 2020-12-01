@@ -13,8 +13,8 @@ add_executable(child "lab 2/child.c")
 add_executable(lab3 "lab3/main.c" lab3/merge.h lab3/vector.h lab3/matfunc.h)
 target_link_libraries(lab3 ${CMAKE_THREAD_LIBS_INIT})
 
-add_executable(lab3_test lab3/test_main.c)
-target_link_libraries(lab3_test ${CMAKE_THREAD_LIBS_INIT})
+#add_executable(lab3_test lab3/test_main.c)
+#target_link_libraries(lab3_test ${CMAKE_THREAD_LIBS_INIT})
 #set_source_files_properties("lab3/main.c" PROPERTIES COMPILE_FLAGS "-lpthread")
 
 
