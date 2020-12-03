@@ -1,6 +1,7 @@
 #folders
 /cmake*/
 .idea/
+/venv/
 
 #files
 *test*
@@ -17,3 +18,4 @@ out*
 #pdf
 *.pdf
 !report.pdf
+
