@@ -11,6 +11,7 @@ out*
 #word files
 *.docx
 !title.docx
+*.odt
 
 #excel files
 *.xlsx
@@ -18,4 +19,6 @@ out*
 #pdf
 *.pdf
 !report.pdf
+
+
 
