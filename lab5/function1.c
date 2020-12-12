@@ -9,17 +9,10 @@ void swap(int *a, int *b){
 
 void Sort(int arr[SIZE]) {
     for (int i = 0; i < SIZE; ++i) {
-        int do_swap = 0;
-        int min = 0;
-        for (int j = i+1; j < SIZE; ++j) {
-            if(arr[i] > arr[j]){
-                do_swap = 1;
-                min = j;
+        for (int j = 0; j < SIZE - i; ++j) {
+            if(arr[j] > arr[j+1] ){
+                swap(&arr[j],&arr[j+1]);
             }
-        }
-
-        if(do_swap){
-            swap(&arr[i],&arr[min]);
         }
     }
 }

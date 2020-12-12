@@ -3,4 +3,4 @@ project(lab5 C)
 set(CMAKE_C_STANDARD 99)
 
 add_executable(lab5 static.c function1.c function2.c)
-add_executable(test test.c function2.c functions.h)
+add_executable(test test.c function1.c functions.h)
