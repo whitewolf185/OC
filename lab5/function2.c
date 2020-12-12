@@ -2,8 +2,40 @@
 #include "stdlib.h"
 #include "stdio.h"
 
-void Sort(int arr[SIZE]){
+void swap(int *a, int *b){
+    int tmp;
+    tmp = *a;
+    *a = *b;
+    *b = tmp;
+}
 
+void Qsort(int arr[SIZE], int lhs, int rhs){
+    int l = lhs;
+    int r = rhs;
+    int rep = arr[(l + r)/2];
+
+    while(l <= r){
+        while(arr[l] < rep){
+            ++l;
+        }
+        while(arr[r] > rep){
+            --r;
+        }
+        if(l <= r){
+            swap(&arr[l++], &arr[r--]);
+        }
+    }
+
+    if(lhs < r){
+        Qsort(arr, lhs, r);
+    }
+    if(l < rhs){
+        Qsort(arr,l,rhs);
+    }
+}
+
+void Sort(int arr[SIZE]){
+    Qsort(arr,0,SIZE - 1);
 }
 
 int PrimeCount(int A, int B) {

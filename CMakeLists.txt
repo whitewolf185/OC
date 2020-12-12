@@ -38,4 +38,3 @@ set_target_properties(
         PROPERTIES
         SUFFIX ".out"
 )
-
