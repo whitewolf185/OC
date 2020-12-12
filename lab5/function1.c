@@ -9,7 +9,7 @@ void swap(int *a, int *b){
 
 void Sort(int arr[SIZE]) {
     for (int i = 0; i < SIZE; ++i) {
-        for (int j = 0; j < SIZE - i; ++j) {
+        for (int j = 0; j < SIZE - i - 1; ++j) {
             if(arr[j] > arr[j+1] ){
                 swap(&arr[j],&arr[j+1]);
             }

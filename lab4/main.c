@@ -97,7 +97,7 @@ int main() {
         //child
     else if (id == 0) {
         char *argv[] = {"child", filename, mutexName, mutex2Name, pipeName, pipe1SizeName, (char *) NULL};
-        if (execv("test_child.out", argv) == -1) {
+        if (execv("child.out", argv) == -1) {
             perror("execl error\n");
             _exit(1);
         }

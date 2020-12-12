@@ -23,7 +23,10 @@ int main(){
                 scanf("%d", &arr[i]);
             }
 
-
+            Sort(arr);
+            for (int i = 0; i < SIZE; ++i) {
+                printf("%d ", arr[i]);
+            }
         }
     }
 

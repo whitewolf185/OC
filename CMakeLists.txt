@@ -9,11 +9,8 @@ set(CMAKE_C_STANDARD 99)
 
 add_executable(lab4 "lab4/main.c" "lab4/vector.h")
 add_executable(child "lab4/child.c")
+target_link_libraries(lab4 rt)
 
-
-add_executable(test_lab4 lab4/test_anton_main.c)
-target_link_libraries(test_lab4 rt)
-target_link_libraries(test_lab4 ${CMAKE_THREAD_LIBS_INIT})
 
 add_executable(test_child "lab4/test_Anton_child.c")
 target_link_libraries(test_child rt)
