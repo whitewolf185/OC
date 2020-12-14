@@ -10,11 +10,14 @@ set(CMAKE_C_STANDARD 99)
 add_executable(lab4 "lab4/main.c" "lab4/vector.h")
 add_executable(child "lab4/child.c")
 target_link_libraries(lab4 rt)
+target_link_libraries(child rt)
+target_link_libraries(child ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(lab4 ${CMAKE_THREAD_LIBS_INIT})
 
 
-add_executable(test_child "lab4/test_Anton_child.c")
-target_link_libraries(test_child rt)
-target_link_libraries(test_child ${CMAKE_THREAD_LIBS_INIT})
+#add_executable(test_child "lab4/test_Anton_child.c")
+#target_link_libraries(test_child rt)
+#target_link_libraries(test_child ${CMAKE_THREAD_LIBS_INIT})
 
 add_executable(lab3 "lab3/main.c" lab3/merge.h lab3/vector.h lab3/matfunc.h)
 target_link_libraries(lab3 ${CMAKE_THREAD_LIBS_INIT})
@@ -30,8 +33,3 @@ set_target_properties(
         SUFFIX ".out"
 )
 
-set_target_properties(
-        test_child
-        PROPERTIES
-        SUFFIX ".out"
-)

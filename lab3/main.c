@@ -15,7 +15,6 @@ typedef struct tr_data {
 
 } tr_data;
 
-#define RAND_MAX 10
 //#define DEBUG
 //#define ENTER
 
@@ -189,8 +188,8 @@ int main(int argc, char const *argv[]) {
 #endif
 
     FILE *file = fopen("log.txt", "a");
-    FILE *thread = fopen("D:\\Documents\\Projects\\c++\\OC\\venv\\treads.txt", "a");
-    FILE *time = fopen("D:\\Documents\\Projects\\c++\\OC\\venv\\time.txt", "a");
+    FILE *thread = fopen("/mnt/d/Documents/Projects/c++/OC/venv/treads.txt", "a");
+    FILE *time = fopen("/mnt/d/Documents/Projects/c++/OC/venv/time.txt", "a");
 
     fprintf(file, "threads = %d\ntime = %fms\n\n", max_threads, (end - start) / 1000);
     fprintf(thread, "%d\n", max_threads);

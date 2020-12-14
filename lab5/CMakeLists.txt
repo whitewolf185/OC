@@ -50,3 +50,5 @@ target_link_libraries(static ${lab_link_type})
 target_link_libraries(dynamic ${CMAKE_DL_LIBS})
 
 add_dependencies(dynamic lib1 lib2)
+
+add_executable(test test.c function1.c)
