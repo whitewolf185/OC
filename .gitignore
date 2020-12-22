@@ -3,14 +3,16 @@ cmake*/
 .idea/
 /venv/
 
+
 #files
 *test*
 *.out
 out*
+*.psd
 
 #word files
 *.docx
-!title.docx
+!report.docx
 *.odt
 
 #excel files

@@ -13,6 +13,7 @@ int main(){
                 exit(1);
             }
             printf("Prime numbers: %d\n", PrimeCount(a,b));
+            fflush(stdout);
         }
 
         else if(command == 2){
@@ -27,6 +28,8 @@ int main(){
             for (int i = 0; i < SIZE; ++i) {
                 printf("%d ", arr[i]);
             }
+            printf("\n");
+            fflush(stdout);
         }
     }
 

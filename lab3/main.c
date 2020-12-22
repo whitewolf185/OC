@@ -40,35 +40,19 @@ void *threadFunc(void *Tdata) {
     struct tr_data *id = (struct tr_data *) Tdata;
     vector pixels;
     create(&pixels, 0);
-#ifdef DEBUG
-    printf("Border: %d %d\n",( (id->winX - 1)/2 ), ( (id->winY - 1) / 2 ));
-#endif //DEBUG
+
     for (int i = max(0, id->x - ((id->winX - 1) / 2)); i <= min(n - 1, id->x + ((id->winX - 1) / 2)); ++i) {
         for (int j = max(0, id->y - ((id->winY - 1) / 2)); j <= min(m - 1, id->y + ((id->winY - 1) / 2)); ++j) {
-#ifdef DEBUG
-            printf("IN FOR %di %dj\nmatrix %d\n",i,j,in.matr[i][j]);
-            fflush(stdout);
-#endif //DEBUG
+
             push_back(&pixels, in.matr[i][j]);
         }
     }
 
-#ifdef DEBUG
-    printf("_____\n");
-    printf("BEFORE MERGE  id is %dx %dy\n",id->x,id->y);
-    print_all(&pixels);
-    printf("\n");
-    fflush(stdout);
-#endif //DEBUG
+
 
     merge(&pixels, 0, pixels.size - 1);
 
-#ifdef DEBUG
-    printf("AFTER MERGE  id is %dx %dy\n",id->x,id->y);
-    print_all(&pixels);
-    printf("\n");
-    fflush(stdout);
-#endif //DEBUG
+
 
 
     if (m > 1 && n > 1) {
@@ -191,9 +175,11 @@ int main(int argc, char const *argv[]) {
     FILE *thread = fopen("/mnt/d/Documents/Projects/c++/OC/venv/treads.txt", "a");
     FILE *time = fopen("/mnt/d/Documents/Projects/c++/OC/venv/time.txt", "a");
 
+    double threTime = (end - start) / 1000;
+
     fprintf(file, "threads = %d\ntime = %fms\n\n", max_threads, (end - start) / 1000);
     fprintf(thread, "%d\n", max_threads);
-    fprintf(time, "%f\n", (end - start) / 1000);
+    fprintf(time, "%f\n", threTime);
 
     fclose(file);
     fclose(thread);
