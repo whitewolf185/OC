@@ -45,5 +45,5 @@ int try_bind(zmqpp::socket &socket) {
 }
 
 enum class action : int {
-    fork, exit, unbind_front, unbind_back, rebind_front, rebind_back, start,stop,time,test
+    fork, exit, unbind_front, unbind_back, rebind_front, rebind_back, start,stop,time,test,done
 };

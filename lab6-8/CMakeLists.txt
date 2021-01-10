@@ -11,4 +11,7 @@ target_link_libraries(server_fin zmqpp zmq sodium pthread)
 add_executable(client client.cpp)
 target_link_libraries(client zmqpp zmq sodium pthread)
 
-add_dependencies(server_fin client)
+add_executable(timer timer.cpp)
+target_link_libraries(timer zmqpp zmq sodium pthread)
+
+add_dependencies(server_fin client timer)

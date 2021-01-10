@@ -9,7 +9,7 @@
 #include <map>
 
 #include "network.h"
-#define DEBUG
+//#define DEBUG
 
 int id = -1, next_id = -1, prev_id = -1;
 std::unique_ptr<zmqpp::socket> front_in(nullptr), front_out(nullptr), front_ping(nullptr),
@@ -85,7 +85,9 @@ void* back_to_front(void*) {
 #endif
 
         if (back_in.get() == nullptr) {
+#ifdef DEBUG
             flag = false;
+#endif
             continue;
         }
 
@@ -130,7 +132,6 @@ void* back_to_front(void*) {
     }
     return NULL;
 }
-
 
 
 int main(int argc, char* argv[]){
@@ -190,6 +191,9 @@ int main(int argc, char* argv[]){
     int act;
     int tid;
 
+    zmqpp::socket timer_sock(context, zmqpp::socket_type::push);
+    std::string timer_port = std::to_string(try_bind(timer_sock));
+    bool timer_started = false;
     while (true) {
         if (!front_in->receive(msg)) {
             perror("");
@@ -246,11 +250,67 @@ int main(int argc, char* argv[]){
                 break;
             }
 
+            case action::done: {
+                std::cout << "im in client's done" << std::endl;
+                zmqpp::message exit_msg;
+                exit_msg << tid << static_cast<int>(action::exit);
+                timer_sock.send(exit_msg);
+                std::cout << "client's done msg was sent" << std::endl;
+                break;
+            }
+
             case action::start: {
-                pthread_t timer;
-                check(pthread_create(&timer, NULL, timer_control, (void*) action::start),
-                      -1,
-                      "pthread_create error");
+                if(timer_started){
+                    std::cout << "timer already started" << std::endl;
+                    break;
+                }
+
+                int pid;
+                pid = fork();
+                check(pid,-1,"fork error");
+                if(pid == 0){
+                    check(execl("timer", "timer",timer_port.c_str(), front_in_port.c_str(), NULL),
+                          -1,
+                          "execl error");
+                }
+                size_t wait;
+                msg >> wait;
+
+                zmqpp::message timer_msg;
+                timer_msg << tid << static_cast<int>(action::start) << wait;
+                timer_sock.send(timer_msg);
+
+                timer_started = true;
+                std::cout << "message sent. flag = " << timer_started << std::endl;
+
+                break;
+            }
+
+            case action::time: {
+                std::cout << "im in client's time" << std::endl;
+                if(!timer_started){
+                    std::cout << "You had not started timer" << std::endl;
+                    break;
+                }
+                std::cout << "trying to send msg" << std::endl;
+
+                zmqpp::message timer_msg;
+                timer_msg << tid << static_cast<int>(action::time) ;
+                std::cout << "msg = " << timer_sock.send(timer_msg) << std::endl;
+                break;
+            }
+
+            case action::stop: {
+                if(!timer_started){
+                    std::cout << "Please start timer" << std::endl;
+                    break;
+                }
+
+                zmqpp::message timer_msg;
+                timer_msg << tid << static_cast<int>(action::stop) ;
+                timer_sock.send(timer_msg);
+                timer_started = false;
+                break;
             }
 
             default:{}

@@ -249,13 +249,19 @@ int main(){
             zmqpp::message msg;
             msg << id;
             if(act == "start"){
-                msg << static_cast<int>(action::start);
+                std::cout << "im in client's start" << std::endl;
+                size_t wait;
+                std::cin >> wait;
+                msg  << static_cast<int>(action::start) << wait;
+                node.out_sock().send(msg);
             }
             else if(act == "stop"){
                 msg << static_cast<int>(action::stop);
+                node.out_sock().send(msg);
             }
             else if(act == "time"){
                 msg << static_cast<int>(action::time);
+                node.out_sock().send(msg);
             }
         }
 
