@@ -256,6 +256,7 @@ int main(int argc, char* argv[]){
                 exit_msg << tid << static_cast<int>(action::exit);
                 timer_sock.send(exit_msg);
                 std::cout << "client's done msg was sent" << std::endl;
+                timer_started = false;
                 break;
             }
 

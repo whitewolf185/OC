@@ -265,6 +265,19 @@ int main(){
             }
         }
 
+        if(command == "ping"){
+            int id;
+            std::cin >> id;
+
+            auto node = find_node(id);
+            if(ping(node.ping_sock(), node.ping_port(), id)){
+                std::cout << "OK: " << id << std::endl;
+            }
+            else{
+                std::cerr << "Error: node is unavailable" << std::endl;
+            }
+        }
+
         if(command == "test"){
             int pid = fork();
             if(pid == 0){
